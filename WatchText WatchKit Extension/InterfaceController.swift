@@ -16,8 +16,8 @@ class InterfaceController: WKInterfaceController {
     
     
     @IBAction func addText() {
-   let suggestions = ["Yes","No","Later, Dude"]
-        presentTextInputController(withSuggestions: suggestions, allowedInputMode: .allowEmoji) { (results) in
+   let suggestions = ["Yes","No","😎","Later, Dude"]
+        presentTextInputController(withSuggestions: suggestions, allowedInputMode: .allowAnimatedEmoji) { (results) in
             guard let responses = results else {
                 self.label.setText("Cancelled")
                 return
@@ -25,6 +25,10 @@ class InterfaceController: WKInterfaceController {
             if let text = responses[0] as? String{
                 self.label.setText(text)
             }
+            if let data = responses[0] as? Data{
+                let emoji = UIImage(data: data)
+                self.image.setImage(emoji)
+            }                                                                                     
         }
         
         
